@@ -10,28 +10,28 @@ let gameOver = false;
 class Field {
     constructor(field) {
         this._field = field;
-        this._lastIndex = 0;
-        this._lastFieldRow = 0;
+        this._y = 0;
+        this._x = 0;
     }
 
     get field() {
         return this._field;
     }
 
-    get lastIndex() {
-        return this._lastIndex;
+    get y() {
+        return this._y;
     }
 
-    get lastFieldRow() {
-        return this._lastFieldRow;
+    get x() {
+        return this._x;
     }
 
-    set lastIndex(index) {
-        this._lastIndex = index;
+    set y(index) {
+        this._y = index;
     }
 
-    set lastFieldRow(index) {
-        this._lastFieldRow = index;
+    set x(index) {
+        this._x = index;
     }
 
     print() {
@@ -52,47 +52,47 @@ class Field {
 
     updateField(direction) {
         const thisField = this.field;
-        let startingIndex;
+        let startingCoordinate;
         let icon;
         switch (direction) {
             case 'u':
-                startingIndex = this.lastIndex;
-                if (this.lastFieldRow - 1 < 0 || thisField[this.lastFieldRow - 1][startingIndex] === pathCharacter) {
+                startingCoordinate = this.y;
+                if (this.x - 1 < 0 || thisField[this.x - 1][startingCoordinate] === pathCharacter) {
                     console.log('Invalid selection')
                     break;
                 } else {
-                    icon = thisField[this.lastFieldRow - 1].splice(this.lastIndex, 1, pathCharacter);
-                    this.lastFieldRow -= 1;
+                    icon = thisField[this.x - 1].splice(this.y, 1, pathCharacter);
+                    this.x -= 1;
                     break;
                 }
             case 'r':
-                startingIndex = this.lastIndex + 1;
-                if (startingIndex >= thisField.length || thisField[this.lastFieldRow][startingIndex] === pathCharacter) {
+                startingCoordinate = this.y + 1;
+                if (startingCoordinate >= thisField.length || thisField[this.x][startingCoordinate] === pathCharacter) {
                     console.log('Invalid selection');
                     break;
                 } else {
-                    icon = thisField[this.lastFieldRow].splice(startingIndex, 1, pathCharacter);
-                    this.lastIndex = startingIndex;
+                    icon = thisField[this.x].splice(startingCoordinate, 1, pathCharacter);
+                    this.y = startingCoordinate;
                     break;
                 }
             case 'd':
-                startingIndex = this.lastIndex;
-                if (this.lastFieldRow + 1 > thisField.length - 1 || thisField[this.lastFieldRow + 1][startingIndex] === pathCharacter) {
+                startingCoordinate = this.y;
+                if (this.x + 1 > thisField.length - 1 || thisField[this.x + 1][startingCoordinate] === pathCharacter) {
                     console.log('Invalid selection')
                     break;
                 } else {
-                    icon = thisField[this.lastFieldRow + 1].splice(this.lastIndex, 1, pathCharacter);
-                    this.lastFieldRow += 1;
+                    icon = thisField[this.x + 1].splice(this.y, 1, pathCharacter);
+                    this.x += 1;
                     break;
                 }
             case 'l':
-                startingIndex = this.lastIndex - 1;
-                if (startingIndex < 0 || thisField[this.lastFieldRow][startingIndex] === pathCharacter) {
+                startingCoordinate = this.y - 1;
+                if (startingCoordinate < 0 || thisField[this.lastFieldRow][startingCoordinate] === pathCharacter) {
                     console.log('Invalid selection');
                     break;
                 } else {
-                    icon = thisField[this.lastFieldRow].splice(startingIndex, 1, pathCharacter);
-                    this.lastIndex = startingIndex;
+                    icon = thisField[this.x].splice(startingCoordinate, 1, pathCharacter);
+                    this.y = startingCoordinate;
                     break;
                 }
         }
